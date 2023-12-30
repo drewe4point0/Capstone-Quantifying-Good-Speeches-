@@ -1,0 +1,7 @@
+/Data
+*.csv
+*.log
+*.pyc
+*.json
+*.sph
+*.stm
