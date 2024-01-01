@@ -1,17 +1,16 @@
 # Capstone: Quantifying Successful Speeches
 
 **Table of Contents:**
-- [Introduction / Project Overview](#introduction)
-- [Problem Area, Those Affected, and Impact](#problem-area)
+- [Introduction, Project Overview](#introduction-project-overview)
+- [Problem Area, Those Affected, and Impact](#the-problem-area-and-those-affected)
 - [Methodology](#methodology)
 - [Data](#data)
 - [Notebooks](#notebooks)
-- [References](#references)
 - [Configuration](#configuration)
 - [Steps to Complete](#steps-to-complete)
 
 
-## Introduction / Project Overview
+## Introduction, Project Overview
 
 What are the qualities that make a speech impactful?  
 
