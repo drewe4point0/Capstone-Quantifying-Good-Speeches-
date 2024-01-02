@@ -152,8 +152,8 @@ The coding environment used for this project has been exported into a .yml file 
 
 - [x] Create initial GitHub repository
   - [x] ReadMe and .gitignore
-  - [ ] Folder for notebooks with notebooks uploaded
-  - [ ] Create separate environment, export and upload coding environment details.
+  - [x] Folder for notebooks with notebooks uploaded
+  - [x] Create separate environment, export and upload coding environment details.
 - [ ] Preliminary exploratory data analysis ("EDA") on the data
   - [ ] determine feasible measure of "good".
   - [ ] general EDA
