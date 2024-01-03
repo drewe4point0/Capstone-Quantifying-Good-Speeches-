@@ -142,7 +142,7 @@ Notebooks are, as of this writing, separated according to which dataset each is 
 
 ## Configuration
 
-The coding environment used for this project has been exported into a .yml file and is included in the main branch of this repository.
+The coding environment used for this project has been exported into a BSTN_cap_env.yml file and is included in the main branch of this repository.
 
 
 
@@ -154,9 +154,9 @@ The coding environment used for this project has been exported into a .yml file 
   - [x] ReadMe and .gitignore
   - [x] Folder for notebooks with notebooks uploaded
   - [x] Create separate environment, export and upload coding environment details.
-- [ ] Preliminary exploratory data analysis ("EDA") on the data
-  - [ ] determine feasible measure of "good".
-  - [ ] general EDA
+- [x] Preliminary exploratory data analysis ("EDA") on the data
+  - [x] determine feasible measure of "good".
+  - [x] general EDA
 - [ ] Merge the likes and views from Dataset #1 into Dataset #2
 - [ ] Discover attributes that correlate with what a "good" speech is
 - [ ] Begin iterating models
