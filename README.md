@@ -157,9 +157,9 @@ The coding environment used for this project has been exported into a BSTN_cap_e
 - [x] Preliminary exploratory data analysis ("EDA") on the data
   - [x] determine feasible measure of "good".
   - [x] general EDA
-- [ ] Merge the likes and views from Dataset #1 into Dataset #2
-- [ ] Discover attributes that correlate with what a "good" speech is
-- [ ] Begin iterating models
+- [x] Merge the likes and views from Dataset #1 into Dataset #2
+- [x] Discover attributes that correlate with what a "good" speech is
+- [x] Begin iterating models
 
 
 If you have any questions about this project, I would love to speak with you!  Please don't hesitate to reach out:
