@@ -150,6 +150,8 @@ The coding environment used for this project has been exported into a BSTN_cap_e
 ## Steps to Complete 
 ---
 
+- [work in progress] clean up the notebooks for ease of understanding
+
 - [x] Create initial GitHub repository
   - [x] ReadMe and .gitignore
   - [x] Folder for notebooks with notebooks uploaded
