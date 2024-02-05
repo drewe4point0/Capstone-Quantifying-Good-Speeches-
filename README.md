@@ -7,7 +7,7 @@
 - [Data](#data)
 - [Notebooks](#notebooks)
 - [Configuration](#configuration)
-- [Steps to Complete](#steps-to-complete)
+- [Conclusion](#conclusion)
 
 
 
@@ -18,13 +18,14 @@ What are the qualities that make a speech impactful?
 
 This project is to determine insight into what attributes of TED speeches correlate with their success.  It is our hope that insights will be gained for anyone who wishes to impact an audience using speeches, from business leaders giving company town-halls, to students defending their thesis, to keynote speakers looking to "wow" an audience.
 
-This project is also an exercise by it's author (Drewe MacIver) to build predictive models.  The latter parts of this project will focus on building a predictive model to see how determinate the metrics we've identified actually are at predicting the success of a speech.  
+This project is also an exercise by it's author (Drewe MacIver) to reasearch and extract insights from these data.  The latter parts of this project will focus on examining the coefficients of regression models (both linear and logistic), and the feature importances of a random forest decision tree classifier, to see what insights can be gained from the features that impact a speech's rating.   
 
 #### Goal:
 
 The goal of this project is to:
 1. Determine the attributes of speeches that correlate with that speeches success ("Correlation Analysis" / "CA").
 2. Create a prediction model that can predict the rating of a speech ("Prediction Model" / "PM").
+3. Gain insights from the coefficients of these predictive models.
 
 
 
@@ -50,12 +51,13 @@ Every speech is an opportunity to influence.  Research into the attributes that 
 
 Using a collection of 4,003 speeches collected from the TED website [What Is TED?](#data), this project will take the following steps:
 
-1. Exploration of the data to determine a metric that we will use to determine what "good" means.
-2. Further exploratory data analysis ("EDA") to determine which attributes can be quantified and used in our Correlation Analysis ("CA") or Prediction Model ("PM").
-3. Correlation Analysis: An initial report on the measures that most strongly correlate with what a "good" speech is.
-4. Prediction Model: Model building and refining to predict the "goodness" of a speech.
-
-
+1. Inital loading of the datasets and aggrregating them into one which I will use.
+2. Data cleaning.
+3. Feature engineering.
+4. Baseline modelling.
+5. Iterating over the features of our baseline model to research and/or discover various coefficients.
+6. Various other analyses
+7. Conclusion
 
 
 ## Data: 
@@ -70,6 +72,10 @@ Special thanks to [Miguel Corral Jr.](https://www.kaggle.com/miguelcorraljr) for
 
 
 ### Data Dictionaries:
+
+#### Dataset Used (after merging and trimming the two original datasets):
+
+*Insert Data Dictionary*
 
 #### Dataset #1:
 
@@ -129,13 +135,7 @@ The column breakdown of the dataset (n=5701):
 
 ## Notebooks
 
-Notebooks are, as of this writing, separated according to which dataset each is doing EDA on.  There are therefore three notebooks thus far:
-
-- A notebook for exploring Dataset #1,
-- A notebook for exploring Dataset #2,
-- A notebook for merging the likes and views from Dataset #2 into Dataset #1.
-
-- More notebooks are likely to be made.  
+While earlier iterations of this project containted multiple notebooks, the primary notebook for this dataset is the "Ted Dataset (with Transcripts).ipynb"
 
 
 
@@ -146,22 +146,234 @@ The coding environment used for this project has been exported into a BSTN_cap_e
 
 
 
+## Conclusion
 
-## Steps to Complete 
----
+### A. General Comment on Modelling and Their Train/Test Scores
 
-- [work in progress] clean up the notebooks for ease of understanding
+I ran logistic regression tests on many different mixes of features.
 
-- [x] Create initial GitHub repository
-  - [x] ReadMe and .gitignore
-  - [x] Folder for notebooks with notebooks uploaded
-  - [x] Create separate environment, export and upload coding environment details.
-- [x] Preliminary exploratory data analysis ("EDA") on the data
-  - [x] determine feasible measure of "good".
-  - [x] general EDA
-- [x] Merge the likes and views from Dataset #1 into Dataset #2
-- [x] Discover attributes that correlate with what a "good" speech is
-- [x] Begin iterating models
+I used a variety of CountVectorizers (BagOfWords, with various n_grams and max_features; TFIDF; BERT).  I included various mixes of engineered features (words_spoken_per_minute, laughs_per_minute, questions_per_minute, and others) and dummied features (topic, occupation [of speaker], month_published, year_recorded, and others).  
+
+None of these combinations of features that I tested were able to achieve a train/test score of above roughly 64%/61%.  While this IS predictive, it is not largely so.
+
+The majority of the insights gained in this project stem from looking into the features that had the highest coefficients - especially the CountVectorization bigrams and trigrams, and the numerical engineered features.
+  
+
+### B. Topic
+
+The topic of speech research yielded some interesting coefficients.  Topics like Society, Personal Growth, and Work had higher positive coefficients, while topics like Global Issues, Design, and Science had negative coefficients.  (See the tables below).  
+
+While these figures do contribute to a speech receiving more ‘likes’ on the TED website, it should be noted that their coefficients are not especially strong, so this statistic should be taken with a grain of salt.  
+
+For a sense of scale, it should be noted that the topic “society”, and whether or not a speech was given on the “ted_mainstage”, accounted for roughly the same degree of influence, with each having a coefficient of 0.036.  
+
+Logistic Regression (Top 10 Coefficients)
+| Feature          | Coefficient |
+|------------------|-------------|
+| society          | 0.036170    |
+| personal growth  | 0.024280    |
+| work             | 0.021501    |
+| social change    | 0.021344    |
+| business         | 0.018442    |
+| leadership       | 0.017648    |
+| psychology       | 0.017092    |
+| humanity         | 0.016840    |
+| education        | 0.015957    |
+| communication    | 0.015277    |
+
+Logistic Regression (Bottom 10 Coefficients)
+| Feature       | Coefficient |
+|---------------|-------------|
+| Africa        | -0.011622   |
+| india         | -0.011786   |
+| live music    | -0.012104   |
+| war           | -0.014104   |
+| technology    | -0.015705   |
+| TEDx          | -0.017136   |
+| art           | -0.018498   |
+| science       | -0.019425   |
+| design        | -0.027372   |
+| global issues | -0.045442   |
+
+
+
+
+### C. Language Used
+
+The below tables of bigrams are a fair representation of the words that were repeatedly shown to have a positive coefficient and negative coefficient.
+
+At 0.09 to 0.06, the unigrams like “mind”, “students”, “thinking”, and “exactly” have a very high coefficients, relative to the larger n_grams seen in the study, which tended to fall below 0.03.
+
+And while bigrams did have significantly weaker coefficients, we can still learn from their diminished contribution.  General words that hint at a crowd’s or an individual’s **thinking** or **feeling** appeared to positively influence the speech’s rating, while exact words like “90 percent” or “30 years” appeared to negatively influence how that speech was rated.  
+
+If you yourself were looking to have your own speech be more well received, I would encourage you to include the words or phrases that have positive coefficients, and avoid the words or phrases that have negative coefficients. 
+
+Logistic Regression (top 10 positive coefficients - unigrams):
+| Feature  | Coefficient |
+|----------|-------------|
+| mind     | 0.090314    |
+| students | 0.081181    |
+| thinking | 0.081134    |
+| exactly  | 0.078422    |
+| doesnt   | 0.077536    |
+| instead  | 0.070875    |
+| hand     | 0.067619    |
+| happen   | 0.067269    |
+| computer | 0.066404    |
+| number   | 0.064237    |
+
+Logistic Regression (bottom 10 positive coefficients - unigrams):
+| Feature  | Coefficient |
+|----------|-------------|
+| left     | -0.057576   |
+| simple   | -0.058305   |
+| book     | -0.059713   |
+| working  | -0.061128   |
+| months   | -0.061594   |
+| took     | -0.063037   |
+| bring    | -0.071974   |
+| decided  | -0.072279   |
+| build    | -0.080311   |
+| im going | -0.085750   |
+
+
+Logistic Regression (top 10 positive coefficients - bigrams):
+| Feature       | Coefficient |
+|---------------|-------------|
+| want know     | 0.039126    |
+| people say    | 0.029091    |
+| people think  | 0.026444    |
+| feels like    | 0.026033    |
+| dont think    | 0.025069    |
+| black hole    | 0.024175    |
+| know people   | 0.022336    |
+| years later   | 0.020470    |
+| high school   | 0.020177    |
+| answer question| 0.020100    |
+
+Logistic Regression (top 10 negative coefficients - bigrams):
+| Feature          | Coefficient |
+|------------------|-------------|
+| 90 percent       | -0.017563   |
+| 30 years         | -0.018234   |
+| middle east      | -0.018441   |
+| ♫ ♫              | -0.019905   |
+| im going         | -0.023090   |
+| just want        | -0.023170   |
+| ladies gentlemen | -0.025534   |
+| looks like       | -0.025968   |
+| people living    | -0.029898   |
+| weve got         | -0.031898   |
+
+Random Forest Feature Importances - quadgrams:
+| Feature                    | Importance |
+|----------------------------|------------|
+| weve come long way         | 0.108924   |
+| thank thank thank thank    | 0.105864   |
+| small thing big idea       | 0.092390   |
+| thank chris anderson thank | 0.084021   |
+| im going talk today        | 0.076134   |
+| id like talk today         | 0.063073   |
+| let tell little bit        | 0.056309   |
+| make world better place    | 0.049534   |
+| dont know dont know        | 0.047605   |
+| today im going talk        | 0.046653   |
+
+
+
+### D. Numerical Engineered Features
+
+The highest degree of influence on whether a speech was rated above the mean or not was whether it was given on the “ted_mainstage”.  
+
+The “laughs_per_minute” and the number of website “comments” seemed to have a similar degree of effect on a speeches rating.  
+
+Interestingly, the rate of speech (the “words_per_minute”) was the weakest coefficient of these variables.  It seems that the audience does rate a speech much more favourably if the speaker talks quickly or slowly.  
+
+I encourage you to look at the tables below and see for yourself what you find interesting about these findings!
+
+Logistic Regression:
+| Feature               | Coefficient |
+|---------------------|------------|
+| ted_mainstage       | 0.169018   |
+| num_question_marks  | 0.088434   |
+| comments            | 0.074825   |
+| laughs_per_minute   | 0.074142   |
+| questions_per_minute| 0.070605   |
+| num_laughs          | 0.061112   |
+| word_count          | 0.036111   |
+| duration            | 0.032129   |
+| words_per_minute    | 0.028710   |
+| multiple_speakers   | -0.049351  |
+
+
+Random Forest:
+| Feature             | Importance |
+|---------------------|------------|
+| comments            | 0.28       |
+| laughs_per_minute   | 0.16       |
+| questions_per_minute| 0.12       |
+| num_laughs          | 0.10       |
+| words_per_minute    | 0.08       |
+| num_question_marks  | 0.08       |
+| duration            | 0.06       |
+| ted_mainstage       | 0.06       |
+| word_count          | 0.06       |
+| multiple_speakers   | 0.00       |
+
+
+### E. Title
+
+While the length of a speech’s title didn’t appear to correlate much with the percent_likes it received (R^2 value of 0.016, and a Coefficient of 0.0877), some interesting coefficients were found in the words that a title contains.  Words like “Teach”, “Build”, and “Future” had a positive impact on the speeches likes, while words like “making”, “lives”, and “women” had a negative impact.  
+
+Logistic regression (top 10 positive coefficients):
+| Feature | Coefficient |
+|---------|-------------|
+| teach   | 0.059401    |
+| build   | 0.053227    |
+| future  | 0.051909    |
+| learned | 0.049527    |
+| love    | 0.048637    |
+| better  | 0.047232    |
+| 3       | 0.045885    |
+| power   | 0.040386    |
+| work    | 0.039140    |
+| tell    | 0.038766    |
+
+
+Logistic regression (top 10 negative coefficients):
+| Feature | Coefficient |
+|---------|-------------|
+| making  | -0.035987   |
+| lives   | -0.036566   |
+| women   | -0.037411   |
+| ocean   | -0.038510   |
+| science | -0.039195   |
+| new     | -0.041241   |
+| cancer  | -0.042177   |
+| music   | -0.050583   |
+| art     | -0.061308   |
+| global  | -0.065322   |
+
+
+
+### F. Ted MainStage Impact
+
+Speeches given at MainStage TED events (and not TEDx, or other offshoot events) did receive a higher rating, but not by much.  When normalized, the mean difference in percent_likes was 0.012% higher for mainstage speeches than it was for non-mainstage ones.  Statistically significant, but not major.   
+
+
+
+
+### In Summary
+
+In summary, I have learned that there appear to be features of a speech that do empirically positively impact how well that speech is received.  The “laughs_per_minute” is 2.5x more influential than how fast the presenter speaks (“words_per_minute”).  
+
+Words like “mind”, “students”, “thinking”, and “exactly” had very strong influences relative to other words and/or features.  
+
+General words like “want know”, “people say”, “people think”, and “feels like” had a less strong (compared to the above single-word features) but still positive influence throughout this research.  And words that were more precise, such as “90 percent” or “30 years” had a negative influence.  
+
+And whether or not a talk was given on the “ted_mainstage” had the most influence out of all the features, but while this influence was most significant, this ‘most significant’ feature still only led to a relative 0.012% degree of influence on how many ‘likes’ a talk received on the TED website.  
+
+It has been a pleasure researching this topic, and I look forward to doing more research into what else can influence the impact that a speech can have on its audience.  
 
 
 If you have any questions about this project, I would love to speak with you!  Please don't hesitate to reach out:
