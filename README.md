@@ -73,35 +73,73 @@ Special thanks to [Miguel Corral Jr.](https://www.kaggle.com/miguelcorraljr) for
 
 ### Data Dictionaries:
 
-#### Dataset Used (after merging and trimming the two original datasets):
+#### Dataset Used (and, separately, the engineered features) (after merging and trimming the two original datasets):
 
-*Insert Data Dictionary*
+| Column Name      | Rows | Original Datatype | Updated Datatype / Decision             |
+|------------------|------|----------|--------------------------------------------------|
+| all_speakers     | 3331 | object   | DROPPED / multiple_speakers variable created     |
+| occupations      | 3331 | object   | Dummy (via MultiLabelBinarizer)                  |
+| about_speakers   | 3331 | object   | DROPPED                                          |
+| native_lang      | 3331 | object   | DROPPED                                          |
+| available_lang   | 3331 | object   | DROPPED                                          |
+| comments         | 3331 | float64  | Ready for analysis                               |
+| topics           | 3331 | object   | Dummy (via MultiLabelBinarizer), and CountVectorized in Section #7                  |
+| related_talks    | 3331 | object   | DROPPED                                          |
+| url              | 3331 | object   | DROPPED                                          |
+| description      | 3331 | object   | Possible Future CountVectorization               |
+| transcript       | 3331 | object   | CountVectorize                                   |
+| title            | 3331 | object   | Possible Future CountVectorization               |
+| speaker          | 3331 | object   | DROPPED                                          |
+| recorded_date    | 3331 | object   | Changed to DateTime                              |
+| published_date   | 3331 | object   | Changed to DateTime                              |
+| event            | 3331 | object   | DROPPED / ted_mainstage variable created         |
 
-#### Dataset #1:
+### Feature Engineering: Features Created from Original Data:
+
+| Feature Created            | Notes                                                         | Datatype |
+|----------------------------|---------------------------------------------------------------|----------|
+| percent_likes              | likes / views                                                 | float64  |
+| ted_mainstage              | mainstage ted events                                          | binary   |
+| word_count                 | from the "transcript" column                                  | int64    |
+| words_per_minute           | total_words_count / duration                                  | float64  |
+| total_question_count       | summing the instances of "?" in the transcript                | int64    |
+| questions_per_minute       | total_question_count / duration                               | float64  |
+| total_laugh_count          | "Laughter" is included in the transcripts, summing occurrences| int64    |
+| laugh_per_minute           | total_laugh_count / duration                                  | float64  |
+| multiple_speakers          | whether there were multiple speakers or not                   | binary   |
+| published month            | from published_date                                           | int64    |
+| published year             | from published_date                                           | int64    |
+| recorded month             | from recorded_date                                            | int64    |
+| recorded year              | from recorded_date                                            | int64    |
+
+#### Original Dataset #1:
 
 This dataset is used because it contains the transcript for each talk given.  It was last updated on April 30th, 2020, and therefore contains fewer talks than Dataset #2 which was updated on October 13th, 2022.
 
 The column breakdown of the dataset (n=4005):
 
-- **talk_id:** Unique id for each individual talk (speech). (4005 unique values)
-- **title:**  Title of the talk. (4005 unique values)
-- **speaker_1:**  The speaker giving the talk. (3274 unique values)
-- **all_speakers:** If there are multiple speakers, they will be listed here. (3307 unique values)
-- **occupations:** The occupations of the speaker(s). (2050 unique values)
-- **about_speakers:** Details about the speaker's background. (2978 unique values)
-- **views:**  The number of video views that talk has on the TED website (as of April 30th, 2020) (3996 unique values)
-- **recorded_date:** The date the talk was recorded. (1335 unique values)
-- **published_date:** The date the talk was published on the TED.com website. (2962 unique values)
-- **event:**  The TED event that the talk was given at.  (459 unique values)
-- **native_lang:**  The language in which the TED talk was given.  (12 unique values)
-- **available_lang:**  The available languages that the TED talk is available in.  (3902 unique values)
-- **comments:**  The number of comments left on the TED website for that talk.  (602 unique values)
-- **duration:**  The length (in seconds) of the talk. (1188 unique values)
-- **topics:**  The topics that the TED talk covers.  (3977 unique values)
-- **related_talks:**  The talk_id and title of other related TED talks.  (4005 unique values)
-- **url:**  The URL of the TED talk.  (4005 unique values)
-- **description:**  A short description of the TED talk.  (4005 unique values)
-- **transcript:**  Which TED event the talk was given at.  (4005 unique values)
+| Feature          | Description                                                                                             | Unique Values |
+|------------------|---------------------------------------------------------------------------------------------------------|---------------|
+| talk_id          | Unique id for each individual talk (speech).                                                            | 4005          |
+| title            | Title of the talk.                                                                                      | 4005          |
+| speaker_1        | The speaker giving the talk.                                                                            | 3274          |
+| all_speakers     | If there are multiple speakers, they will be listed here.                                               | 3307          |
+| occupations      | The occupations of the speaker(s).                                                                      | 2050          |
+| about_speakers   | Details about the speaker's background.                                                                 | 2978          |
+| views            | The number of video views that talk has on the TED website (as of April 30th, 2020).                    | 3996          |
+| recorded_date    | The date the talk was recorded.                                                                         | 1335          |
+| published_date   | The date the talk was published on the TED.com website.                                                 | 2962          |
+| event            | The TED event that the talk was given at.                                                               | 459           |
+| native_lang      | The language in which the TED talk was given.                                                           | 12            |
+| available_lang   | The available languages that the TED talk is available in.                                              | 3902          |
+| comments         | The number of comments left on the TED website for that talk.                                           | 602           |
+| duration         | The length (in seconds) of the talk.                                                                    | 1188          |
+| topics           | The topics that the TED talk covers.                                                                    | 3977          |
+| related_talks    | The talk_id and title of other related TED talks.                                                       | 4005          |
+| url              | The URL of the TED talk.                                                                                | 4005          |
+| description      | A short description of the TED talk.                                                                    | 4005          |
+| transcript       | Which TED event the talk was given at. (This seems to be a copy-paste error; possibly the transcript?) | 4005          |
+
 
 
 |   talk_id | title                            | speaker_1     | all_speakers         | occupations       | about_speakers                                                                                                                               |   views | recorded_date   | published_date   | event         | native_lang   | available_lang                                                                                                                                                  |   comments |   duration | topics                                       | related_talks                                                                                                                                                                                                                   | url                                                                       | description                                                                               | transcript                                                                                     |
@@ -109,21 +147,24 @@ The column breakdown of the dataset (n=4005):
 |       743 | 10 young Indian artists to watch | Ravin Agrawal | {0: 'Ravin Agrawal'} | {0: ['investor']} | {0: 'As an emerging markets investor, Ravin Agrawal tries to predict the future, balancing economic, political and technological factors. '} |  501623 | 2009-11-06      | 2010-01-20       | TEDIndia 2009 | en            | ['ar', 'bg', 'de', 'el', 'en', 'es', 'fr', 'he', 'hi', 'hr', 'hu', 'it', 'ja', 'ko', 'nl', 'pl', 'pt', 'pt-br', 'ro', 'ru', 'tr', 'uk', 'vi', 'zh-cn', 'zh-tw'] |         35 |        394 | ['Asia', 'art', 'design', 'future', 'india'] | {713: 'Photographing the hidden story', 472: 'My underground art explorations', 643: 'Photographs of secret sites', 1169: 'How I became 100 artists', 1747: 'Embrace the shake', 831: 'How art gives shape to cultural change'} | https://www.ted.com/talks/ravin_agrawal_10_young_indian_artists_to_watch/ | Collector Ravin Agrawal delivers a glowing introduction to 10 of India's most exciting... | Right now is the most exciting time to see new Indian art. Contemporary artists.... (Applause) |
 
 
-#### Dataset #2:
+#### Original Dataset #2:
 
 This dataset was used because it contained views, likes, and video/speech duration data.  
 
 The column breakdown of the dataset (n=5701):
 
-- **talk_id:** Unique id for each individual talk (speech). (5701 unique values)
-- **title:**  Title of the talk. (5701 unique values)
-- **speaker:**  The speaker giving the talk. (4638 unique values)
-- **recorded_date:** The date the talk was recorded. (1901 unique values)
-- **published_date:** The date the talk was published on the TED.com website. (3549 unique values)
-- **event:**  Which TED event the talk was given at.  (638 unique values) 
-- **duration:**  The length (in seconds) of the talk. (1319 unique values)
-- **views:**  The number of video views that talk has on the TED website (as of Oct. 13th 2022) (5693 unique values)
-- **likes:** Number of likes that video has received on the TED website (as of Oct. 13th 2022) (766 unique values)
+| Feature        | Description                                                                                      | Unique Values |
+|----------------|--------------------------------------------------------------------------------------------------|---------------|
+| talk_id        | Unique id for each individual talk (speech).                                                     | 5701          |
+| title          | Title of the talk.                                                                               | 5701          |
+| speaker        | The speaker giving the talk.                                                                     | 4638          |
+| recorded_date  | The date the talk was recorded.                                                                  | 1901          |
+| published_date | The date the talk was published on the TED.com website.                                          | 3549          |
+| event          | Which TED event the talk was given at.                                                           | 638           |
+| duration       | The length (in seconds) of the talk.                                                             | 1319          |
+| views          | The number of video views that talk has on the TED website (as of Oct. 13th 2022).               | 5693          |
+| likes          | Number of likes that video has received on the TED website (as of Oct. 13th 2022).               | 766           |
+
 
 
 |   talk_id | title                      | speaker          | recorded_date   | published_date   | event          |   duration |   views |   likes |
@@ -142,7 +183,7 @@ While earlier iterations of this project containted multiple notebooks, the prim
 
 ## Configuration
 
-The coding environment used for this project has been exported into a BSTN_cap_env.yml file and is included in the main branch of this repository.
+The coding environment used for this project has been exported into a BSTN_cap_env_export.yml file and is included in the main branch of this repository.
 
 
 
