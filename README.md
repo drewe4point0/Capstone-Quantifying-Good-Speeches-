@@ -191,7 +191,7 @@ The coding environment used for this project has been exported into a BSTN_cap_e
 
 ### A. General Comment on Modelling and Their Train/Test Scores
 
-I ran logistic regression tests on many different mixes of features.
+I ran logistic regression and random forest decision tree models on many different mixes of features.
 
 I used a variety of CountVectorizers (BagOfWords, with various n_grams and max_features; TFIDF; BERT).  I included various mixes of engineered features (words_spoken_per_minute, laughs_per_minute, questions_per_minute, and others) and dummied features (topic, occupation [of speaker], month_published, year_recorded, and others).  
 
