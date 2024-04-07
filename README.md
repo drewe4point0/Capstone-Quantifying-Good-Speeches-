@@ -18,7 +18,7 @@ What are the qualities that make a speech impactful?
 
 This project is to determine insight into what attributes of TED speeches correlate with their success.  It is our hope that insights will be gained for anyone who wishes to impact an audience using speeches, from business leaders giving company town-halls, to students defending their thesis, to keynote speakers looking to "wow" an audience.
 
-This project is also an exercise by it's author (Drewe MacIver) to reasearch and extract insights from these data.  The latter parts of this project will focus on examining the coefficients of regression models (both linear and logistic), and the feature importances of a random forest decision tree classifier, to see what insights can be gained from the features that impact a speech's rating.   
+This project is also an exercise by it's author (Drewe MacIver) to research and extract insights from these data.  The latter parts of this project will focus on examining the coefficients of regression models (both linear and logistic), and the feature importances of a random forest decision tree classifier, to see what insights can be gained from the features that impact a speech's rating.   
 
 #### Goal:
 
@@ -36,7 +36,7 @@ Effective communication is about influencing the audience.  A speech is an oppor
 
 There are several reasons why a speech is a particularly influential medium of communication:
 - Duration: A speech is long enough to be able to use emphatic examples and oratory to accurately and entertainingly describe specific situations and things. 
-- Curated / Specific Audience: The audience of a speech often shares common attributes (knowledge and values).  These similaraties can be capitalized on by speaking to the shared knowledge or values of the audience. 
+- Curated / Specific Audience: The audience of a speech often shares common attributes (knowledge and values).  These similarities can be capitalized on by speaking to the shared knowledge or values of the audience. 
 - Specific Language: As speeches can be rehearsed and refined, precise language can be used to achieve a specific emotional result.  
 - Oration / Dramatization: The speech giver is the sole provider of stimulus.  Their tone and pauses are given maximum attention and, therefore, maximum potency.  
 - Historical Pre-disposition: The speech, in story form, has been the mode of communication between humans for thousands of years.  There may be a primal receptivity to this mode of communication.
@@ -51,7 +51,7 @@ Every speech is an opportunity to influence.  Research into the attributes that 
 
 Using a collection of 4,003 speeches collected from the TED website [What Is TED?](#data), this project will take the following steps:
 
-1. Inital loading of the datasets and aggrregating them into one which I will use.
+1. Initial loading of the datasets and aggregating them into one which I will use.
 2. Data cleaning.
 3. Feature engineering.
 4. Baseline modelling.
