@@ -8,8 +8,7 @@
 - [Notebooks](#notebooks)
 - [Configuration](#configuration)
 - [Conclusion](#conclusion)
-
-
+- [Contact Info](#contact-info)
 
 
 ## Introduction, Project Overview
@@ -417,7 +416,10 @@ And whether or not a talk was given on the “ted_mainstage” had the most infl
 It has been a pleasure researching this topic, and I look forward to doing more research into what else can influence the impact that a speech can have on its audience.  
 
 
-If you have any questions about this project, I would love to speak with you!  Please don't hesitate to reach out:
-Phone: +1 778 995 7801
-Email: [Drewe.MacIver@gmail.com](mailto:drewe.maciver@gmail.com)
-LinkedIn: [Drewe MacIver on LinkedIn](https://www.linkedin.com/in/drewe-maciver/)
+## Contact Info
+If you have any questions about this project, I would love to speak with you! Please don't hesitate to reach out:
+
+- **Phone:** +1 778 995 7801
+- **Email:** [Drewe.MacIver@gmail.com](mailto:drewe.maciver@gmail.com)
+- **LinkedIn:** [Drewe MacIver on LinkedIn](https://www.linkedin.com/in/drewe-maciver/)
+- **Website:** [DreweItWithData.com](https://www.dreweitwithdata.com)
